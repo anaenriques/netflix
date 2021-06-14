@@ -1,7 +1,9 @@
 package com.netflix.model;
 
 import java.io.Serializable;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -10,6 +12,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -28,7 +31,6 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-
 public class TvShows implements Serializable{
 	
 	private static final long serialVersionUID = 18080239613616000L;
@@ -56,7 +58,11 @@ public class TvShows implements Serializable{
 	
 	@ManyToOne(fetch= FetchType.LAZY)
 	@JoinColumn(name="categoryId", referencedColumnName="ID")
+	@JsonIgnore
 	private Categories categoryId;
+	
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "tvShows")
+	private List<Seasons> seasons;
 	
 	@Column(name = "ADVERTISING")
 	private String advertising;

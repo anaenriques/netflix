@@ -13,7 +13,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.netflix.model.Seasons;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -28,7 +27,6 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-
 public class Seasons implements Serializable{
 	
 	private static final long serialVersionUID = 18080239613616000L;
@@ -45,8 +43,9 @@ public class Seasons implements Serializable{
 	private String name;
 	
 	
-	@ManyToOne(fetch= FetchType.LAZY)
-	@JoinColumn(name="tvShowId", referencedColumnName="ID")
-	private Seasons tvShowId;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "TV_SHOW_ID", referencedColumnName = "ID")
+	@JsonIgnore
+	private TvShows tvShows;
 
 }

@@ -29,7 +29,6 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-
 public class Categories implements Serializable{
 	
 	private static final long serialVersionUID = 18080239613616000L;
@@ -43,6 +42,5 @@ public class Categories implements Serializable{
 	private String name;
 	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy="categoryId")
-	@JsonIgnore
 	private List<TvShows> tvShow;
 }
