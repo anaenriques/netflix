@@ -7,5 +7,5 @@ import com.netflix.model.Seasons;
 public interface SeasonsServiceI {
 	
 	List<Seasons> listAllSeasons();
-	List<Seasons> findBySeasonId(Long tvShowId);
+	List<Seasons> findSeasonByTvShowId(Long tvShowId);
 }

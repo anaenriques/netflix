@@ -32,4 +32,10 @@ import com.netflix.service.TvShowsServiceI;
 	public List<TvShows> findByCategoryId(Long categoryId) {
 		return tvShowsRepository.findByCategoryId(categoriesRepository.findById(categoryId).get());
 	}
+	
+	@Override
+	public TvShows findById (Long tvShowId){
+		return tvShowsRepository.findById(tvShowId).get();
+	}
+	
 }

@@ -18,18 +18,22 @@ import com.netflix.service.SeasonsServiceI;
 
 	@Service
 	@Qualifier("SeasonsServiceImpl")
-	public class SeasonsServiceImpl implements SeasonsServiceI{
+    public class SeasonsServiceImpl implements SeasonsServiceI{
 	 
 	@Autowired
 	@Qualifier("SeasonsRepository")
 	private SeasonsRepository seasonsRepository;
+	
+	@Autowired
+	@Qualifier("TvShowsRepository")
+	private TvShowsRepository tvShowsRepository;
 	
 	@Override
 	public List<Seasons> listAllSeasons() {
 		return seasonsRepository.findAll();
 	}
 	@Override
-	public List<Seasons> findBySeasonId(Long tvShowId) {
-		return TvShowsRepository.findBySeasonId(seasonsRepository.findById(null).get());
+	public List<Seasons> findSeasonByTvShowId(Long tvShowId) {   
+		return seasonsRepository.findSeasonByTvShows(tvShowsRepository.findById(tvShowId).get());
 	}
 }

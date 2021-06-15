@@ -24,4 +24,9 @@ public class TvShowsController {
 		return tvShowsService.findByCategoryId(categoryId);
 	}
 	
+	@GetMapping("/listAllTvShowsId/{tvShowId}")
+	public TvShows listTvShowsById(@PathVariable Long tvShowId) {
+		return tvShowsService.findById(tvShowId);
+	}
+	
 }

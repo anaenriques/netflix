@@ -12,13 +12,9 @@ import com.netflix.model.TvShows;
 
 @Repository
 @Qualifier("TvShowsRepository")
-public interface TvShowsRepository  extends JpaRepository<TvShows, Integer>{
+public interface TvShowsRepository  extends JpaRepository<TvShows, Long>{
 	
 	public List<TvShows> findByCategoryId(Categories categoryId);
 
-	public static List<Seasons> findBySeasonId(Seasons seasons) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 	
 }

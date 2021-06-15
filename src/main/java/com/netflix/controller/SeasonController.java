@@ -17,7 +17,6 @@ public class SeasonController {
 	
 	@Autowired
 	@Qualifier("SeasonsServiceImpl")
-	
 	private SeasonsServiceI seasonService;
 	
 	@GetMapping("/listAllSeason")
@@ -25,10 +24,10 @@ public class SeasonController {
 		return seasonService.listAllSeasons();
 	}
 	
-	/*@GetMapping("/listAllSeasonId/{tvShowId}")
+	@GetMapping("/listAllSeasonId/{tvShowId}")
 	public List<Seasons> listSeasonsById(@PathVariable Long tvShowId) {
-		return seasonService.findBySeasonId(tvShowId);
-	}*/
+		return seasonService.findSeasonByTvShowId(tvShowId);
+	}
 	
 
 }
