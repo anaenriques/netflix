@@ -23,6 +23,15 @@ public class ChapterController {
 	@Qualifier("ChaptersServiceImpl")
 	
 	private ChaptersServiceI chapterService;
+		
+	@GetMapping("/series/{seriesId}/seasons/{seasonNumber}/chapters")
+	public List<Chapters> listTvShowsAndNumber(@PathVariable long seriesId, @PathVariable int seasonNumber) {
+		return chapterService.findByTvShowsAndNumber(seriesId,seasonNumber);
+	}
 	
+	@GetMapping("/series/{seriesId}/seasons/{seasonNumber}/chapters/{chapterNumber}")
+	public Chapters listTvShowsAndNumberAndChapterNumber(@PathVariable long seriesId, @PathVariable int seasonNumber, @PathVariable int chapterNumber) {
+		return chapterService.findByTvShowsAndNumberAndChapterNumber(seriesId,seasonNumber,chapterNumber);
+	}
 
 }

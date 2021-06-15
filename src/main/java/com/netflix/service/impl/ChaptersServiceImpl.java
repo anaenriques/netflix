@@ -6,10 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
-
+import com.netflix.model.Chapters;
 import com.netflix.repository.ChaptersRepository;
-import com.netflix.repository.SeasonsRepository;
-import com.netflix.repository.TvShowsRepository;
 import com.netflix.service.ChaptersServiceI;
 
 
@@ -21,15 +19,16 @@ import com.netflix.service.ChaptersServiceI;
 	@Qualifier("ChaptersRepository")
 	private ChaptersRepository chaptersRepository;
 	
-	@Autowired
-	@Qualifier("SeasonsRepository")
-	private SeasonsRepository seasonsRepository;
+
+	@Override
+	public List<Chapters> findByTvShowsAndNumber(long tvshowId, int seasonNumber) {
+		return chaptersRepository.listTvShowsAndNumber(tvshowId,seasonNumber);
+	}
 	
-	@Autowired
-	@Qualifier("TvShowsRepository")
-	private TvShowsRepository tvShowsRepository;
-
-
+	@Override
+	public Chapters findByTvShowsAndNumberAndChapterNumber(long tvshowId, int seasonNumber, int chapterNumber) {
+		return chaptersRepository.findChaptersByTvShowsAndNumberAndChapterNumber(tvshowId,seasonNumber,chapterNumber);
+	}
 	
 
 

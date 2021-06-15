@@ -29,7 +29,7 @@ public class SeasonController {
 	}
 	
 	@GetMapping("/series/{seriesId}/seasons/{seasonNumber}")
-	public List<Seasons> listSeasonsById(@PathVariable Long seriesId, @PathVariable int seasonNumber) {
+	public List<Seasons> listTvShowsAndNumber(@PathVariable Long seriesId, @PathVariable int seasonNumber) {
 		final TvShows tvShows = new TvShows();
 		tvShows.setId(seriesId);
 		return seasonService.findByTvShowsAndNumber(tvShows,seasonNumber);
