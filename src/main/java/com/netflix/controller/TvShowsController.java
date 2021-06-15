@@ -19,12 +19,12 @@ public class TvShowsController {
 	
 	private TvShowsServiceI tvShowsService;
 	
-	@GetMapping("/listAllShowsCategories/{categoryId}")
+	@GetMapping("/categories/{categoryId}")
 	public List<TvShows> listTvShowsByName(@PathVariable Long categoryId) {
 		return tvShowsService.findByCategoryId(categoryId);
 	}
 	
-	@GetMapping("/listAllTvShowsId/{tvShowId}")
+	@GetMapping("/tvShow/{tvShowId}")
 	public TvShows listTvShowsById(@PathVariable Long tvShowId) {
 		return tvShowsService.findById(tvShowId);
 	}

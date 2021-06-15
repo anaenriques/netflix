@@ -6,13 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
-import com.netflix.model.Categories;
 import com.netflix.model.Seasons;
 import com.netflix.model.TvShows;
-import com.netflix.repository.CategoriesRepository;
 import com.netflix.repository.SeasonsRepository;
 import com.netflix.repository.TvShowsRepository;
-import com.netflix.service.CategoriesServiceI;
 import com.netflix.service.SeasonsServiceI;
 
 
@@ -32,8 +29,22 @@ import com.netflix.service.SeasonsServiceI;
 	public List<Seasons> listAllSeasons() {
 		return seasonsRepository.findAll();
 	}
+	
 	@Override
-	public List<Seasons> findSeasonByTvShowId(Long tvShowId) {   
-		return seasonsRepository.findSeasonByTvShows(tvShowsRepository.findById(tvShowId).get());
+	public Seasons findById (Long seriesId){
+		return seasonsRepository.findById(seriesId).get();
 	}
+
+	@Override
+	public List<Seasons> findByTvShows(TvShows tvshows) {
+		return seasonsRepository.findByTvShows(tvshows);
+	}
+	
+	@Override
+	public List<Seasons> findByTvShowsAndNumber(TvShows tvshows, int seasonNumber) {
+		return seasonsRepository.findByTvShowsAndNumber(tvshows,seasonNumber);
+	}
+	
+	
+	
 }

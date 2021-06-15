@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.netflix.model.Seasons;
+import com.netflix.model.TvShows;
 import com.netflix.service.SeasonsServiceI;
 
 
@@ -19,15 +20,22 @@ public class SeasonController {
 	@Qualifier("SeasonsServiceImpl")
 	private SeasonsServiceI seasonService;
 	
-	@GetMapping("/listAllSeason")
-	public List<Seasons> listAllSeason() {
-		return seasonService.listAllSeasons();
+	
+	@GetMapping("/series/{seriesId}/seasons")
+	public List<Seasons> listSeasonsById(@PathVariable Long seriesId) {
+		final TvShows tvShows = new TvShows();
+		tvShows.setId(seriesId);
+		return seasonService.findByTvShows(tvShows);
 	}
 	
-	@GetMapping("/listAllSeasonId/{tvShowId}")
-	public List<Seasons> listSeasonsById(@PathVariable Long tvShowId) {
-		return seasonService.findSeasonByTvShowId(tvShowId);
+	@GetMapping("/series/{seriesId}/seasons/{seasonNumber}")
+	public List<Seasons> listSeasonsById(@PathVariable Long seriesId, @PathVariable int seasonNumber) {
+		final TvShows tvShows = new TvShows();
+		tvShows.setId(seriesId);
+		return seasonService.findByTvShowsAndNumber(tvShows,seasonNumber);
 	}
+	
+
 	
 
 }
