@@ -1,3 +1,8 @@
+/*
+ * TvShows's Repository
+ * @author: Ana Enrique
+ * @version: v1.0
+ */
 package com.netflix.repository;
 
 import java.util.List;
@@ -10,10 +15,20 @@ import com.netflix.model.Categories;
 import com.netflix.model.Seasons;
 import com.netflix.model.TvShows;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Interface TvShowsRepository.
+ */
 @Repository
 @Qualifier("TvShowsRepository")
 public interface TvShowsRepository  extends JpaRepository<TvShows, Long>{
 	
+	/**
+	 * Find by category id.
+	 *
+	 * @param categoryId the category id
+	 * @return the list
+	 */
 	public List<TvShows> findByCategoryId(Categories categoryId);
 
 	

@@ -1,3 +1,8 @@
+/*
+ * Seasons RestModel
+ * @author: Ana Enrique
+ * @version: v1.0
+ */
 package com.netflix.dto;
 
 import java.io.Serializable;

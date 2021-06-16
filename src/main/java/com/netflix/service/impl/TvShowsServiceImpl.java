@@ -1,3 +1,8 @@
+/*
+ * TvShows's ServiceImpl
+ * @author: Ana Enrique
+ * @version: v1.0
+ */
 package com.netflix.service.impl;
 
 import java.util.List;
@@ -15,24 +20,42 @@ import com.netflix.service.TvShowsServiceI;
 
 
 
+	// TODO: Auto-generated Javadoc
+/**
+	 * The Class TvShowsServiceImpl.
+	 */
 	@Service
 	@Qualifier("TvShowsServiceImpl")
 	public class TvShowsServiceImpl implements TvShowsServiceI{
 	 
+	/** The tv shows repository. */
 	@Autowired
 	@Qualifier("TvShowsRepository")
 	private TvShowsRepository tvShowsRepository;
 	
+	/** The categories repository. */
 	@Autowired
 	@Qualifier("CategoriesRepository")
 	private CategoriesRepository categoriesRepository;
 	
 
+	/**
+	 * Find by category id.
+	 *
+	 * @param categoryId the category id
+	 * @return the list
+	 */
 	@Override
 	public List<TvShows> findByCategoryId(Long categoryId) {
 		return tvShowsRepository.findByCategoryId(categoriesRepository.findById(categoryId).get());
 	}
 	
+	/**
+	 * Find by id.
+	 *
+	 * @param tvShowId the tv show id
+	 * @return the tv shows
+	 */
 	@Override
 	public TvShows findById (Long tvShowId){
 		return tvShowsRepository.findById(tvShowId).get();
