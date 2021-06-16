@@ -16,6 +16,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -122,5 +124,10 @@ public class TvShows implements Serializable{
 	@Column(name = "ADVERTISING")
 	private String advertising;
 	
-	
+	@JoinTable(name = "CATEGORY_TVSHOWS",
+		    joinColumns = @JoinColumn(name = "TVSHOW_ID", nullable = false),
+		    inverseJoinColumns = @JoinColumn(name="CATEGORY_ID", nullable = false)
+		)
+	@ManyToMany(cascade = CascadeType.ALL)
+	private List<Categories> categories;
 }

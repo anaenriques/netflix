@@ -60,5 +60,10 @@ import com.netflix.service.TvShowsServiceI;
 	public TvShows findById (Long tvShowId){
 		return tvShowsRepository.findById(tvShowId).get();
 	}
+
+	@Override
+	public TvShows updateTvShows(TvShows tvShow) {
+		return tvShowsRepository.save(tvShow);
+	}
 	
 }

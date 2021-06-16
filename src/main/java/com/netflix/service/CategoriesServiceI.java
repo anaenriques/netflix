@@ -6,6 +6,7 @@
 package com.netflix.service;
 
 import java.util.List;
+import java.util.Set;
 
 import com.netflix.model.Categories;
 
@@ -21,4 +22,13 @@ public interface CategoriesServiceI {
 	 * @return the list
 	 */
 	List<Categories> listAllCategories();
+
+	
+	/**
+	 * List categories by ids.
+	 *
+	 * @param listCategoriesIds the list categories ids
+	 * @return the sets the
+	 */
+	Set<Categories> listCategoriesByIds(Set<Long> listCategoriesIds);
 }

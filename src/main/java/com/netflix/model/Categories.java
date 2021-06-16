@@ -6,16 +6,21 @@
 package com.netflix.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.JoinColumn;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.netflix.model.Categories;
@@ -84,7 +89,14 @@ public class Categories implements Serializable{
 	@Column(name = "NAME")
 	private String name;
 	
-	/** The tv show. */
-	@OneToMany(fetch = FetchType.LAZY, mappedBy="categoryId")
-	private List<TvShows> tvShow;
+//	/** The tv show. */
+//	@OneToMany(fetch = FetchType.LAZY, mappedBy="categoryId")
+//	private List<TvShows> tvShow;
+	
+	
+	/** The tv shows. */
+    @ManyToMany(cascade = CascadeType.ALL, mappedBy="categories")
+	private List<TvShows> tvShows;
+	
+
 }

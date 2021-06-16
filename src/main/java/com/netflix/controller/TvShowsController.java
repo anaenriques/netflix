@@ -6,15 +6,23 @@
 package com.netflix.controller;
 
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.netflix.model.Categories;
 import com.netflix.model.TvShows;
 import com.netflix.service.TvShowsServiceI;
+import com.netflix.service.CategoriesServiceI;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -28,6 +36,12 @@ public class TvShowsController {
 	@Qualifier("TvShowsServiceImpl")
 	
 	private TvShowsServiceI tvShowsService;
+	
+	/** The categories service. */
+	@Autowired
+	@Qualifier("CategoriesServiceImpl")
+	
+	private CategoriesServiceI categoriesService;
 	
 	/**
 	 * List tv shows by name.
@@ -51,4 +65,19 @@ public class TvShowsController {
 		return tvShowsService.findById(tvShowId);
 	}
 	
+	/**
+	 * Adds the categories to tv show.
+	 *
+	 * @param tvShowId the tv show id
+	 * @param listCategories the list categories
+	 * @return the response entity
+	 */
+	@PostMapping("/tvShows/addCategories/{tvShowId}/")
+	public ResponseEntity<String> addCategoriesToTvShow(@PathVariable Long tvShowId, @RequestParam Set<Long> listCategories) {
+		Set<Categories> categories = categoriesService.listCategoriesByIds(listCategories);
+		TvShows tvShow = tvShowsService.findById(tvShowId);
+		tvShow.getCategories().addAll(categories);
+		tvShowsService.updateTvShows(tvShow);
+		return ResponseEntity.status(HttpStatus.OK).body("Se ha insertado la categoria correctamente");
+	}
 }

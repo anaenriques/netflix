@@ -5,7 +5,9 @@
  */
 package com.netflix.service.impl;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -14,6 +16,7 @@ import org.springframework.stereotype.Service;
 import com.netflix.model.Categories;
 import com.netflix.repository.CategoriesRepository;
 import com.netflix.service.CategoriesServiceI;
+
 
 
 	// TODO: Auto-generated Javadoc
@@ -37,5 +40,11 @@ import com.netflix.service.CategoriesServiceI;
 	@Override
 	public List<Categories> listAllCategories() {
 		return categoriesRepository.findAll();
+	}
+	
+	
+	@Override
+	public Set<Categories> listCategoriesByIds(Set<Long> listCategoriesIds) {
+		return new HashSet<>(categoriesRepository.findAllById(listCategoriesIds));
 	}
 }

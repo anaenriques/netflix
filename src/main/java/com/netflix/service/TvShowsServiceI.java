@@ -31,4 +31,12 @@ public interface TvShowsServiceI {
 	 * @return the tv shows
 	 */
 	TvShows findById(Long tvShowId);
+	
+	/**
+	 * Update tv show.
+	 *
+	 * @param tvShow the tv show
+	 * @return the tv shows
+	 */
+	TvShows updateTvShows(TvShows tvShow);
 }
