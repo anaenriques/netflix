@@ -8,6 +8,7 @@ package com.netflix.service;
 import java.util.List;
 import java.util.Set;
 
+import com.netflix.exception.NetflixException;
 import com.netflix.model.Categories;
 
 // TODO: Auto-generated Javadoc
@@ -20,8 +21,9 @@ public interface CategoriesServiceI {
 	 * List all categories.
 	 *
 	 * @return the list
+	 * @throws NetflixException the netflix exception
 	 */
-	List<Categories> listAllCategories();
+	List<Categories> listAllCategories() throws NetflixException;
 
 	
 	/**
@@ -29,6 +31,7 @@ public interface CategoriesServiceI {
 	 *
 	 * @param listCategoriesIds the list categories ids
 	 * @return the sets the
+	 * @throws NetflixException the netflix exception
 	 */
-	Set<Categories> listCategoriesByIds(Set<Long> listCategoriesIds);
+	Set<Categories> listCategoriesByIds(Set<Long> listCategoriesIds) throws NetflixException;
 }

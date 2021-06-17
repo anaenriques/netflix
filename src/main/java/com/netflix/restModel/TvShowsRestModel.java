@@ -3,7 +3,7 @@
  * @author: Ana Enrique
  * @version: v1.0
  */
-package com.netflix.dto;
+package com.netflix.restModel;
 
 import java.io.Serializable;
 import java.util.Date;

@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
+import com.netflix.exception.NetflixException;
 import com.netflix.model.Chapters;
 import com.netflix.repository.ChaptersRepository;
 import com.netflix.service.ChaptersServiceI;
@@ -38,7 +39,7 @@ import com.netflix.service.ChaptersServiceI;
 	 * @return the list
 	 */
 	@Override
-	public List<Chapters> findByTvShowsAndNumber(long tvshowId, int seasonNumber) {
+	public List<Chapters> findByTvShowsAndNumber(long tvshowId, int seasonNumber) throws NetflixException{
 		return chaptersRepository.listTvShowsAndNumber(tvshowId,seasonNumber);
 	}
 	
@@ -51,7 +52,7 @@ import com.netflix.service.ChaptersServiceI;
 	 * @return the chapters
 	 */
 	@Override
-	public Chapters findByTvShowsAndNumberAndChapterNumber(long tvshowId, int seasonNumber, int chapterNumber) {
+	public Chapters findByTvShowsAndNumberAndChapterNumber(long tvshowId, int seasonNumber, int chapterNumber) throws NetflixException{
 		return chaptersRepository.findChaptersByTvShowsAndNumberAndChapterNumber(tvshowId,seasonNumber,chapterNumber);
 	}
 	

@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
+import com.netflix.exception.NetflixException;
 import com.netflix.model.Categories;
 import com.netflix.repository.CategoriesRepository;
 import com.netflix.service.CategoriesServiceI;
@@ -38,13 +39,13 @@ import com.netflix.service.CategoriesServiceI;
 	 * @return the list
 	 */
 	@Override
-	public List<Categories> listAllCategories() {
+	public List<Categories> listAllCategories() throws NetflixException{
 		return categoriesRepository.findAll();
 	}
 	
 	
 	@Override
-	public Set<Categories> listCategoriesByIds(Set<Long> listCategoriesIds) {
+	public Set<Categories> listCategoriesByIds(Set<Long> listCategoriesIds) throws NetflixException{
 		return new HashSet<>(categoriesRepository.findAllById(listCategoriesIds));
 	}
 }

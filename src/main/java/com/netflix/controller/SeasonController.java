@@ -13,9 +13,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.netflix.exception.NetflixException;
 import com.netflix.model.Seasons;
 import com.netflix.model.TvShows;
 import com.netflix.service.SeasonsServiceI;
+
+import io.swagger.annotations.SwaggerDefinition;
 
 
 // TODO: Auto-generated Javadoc
@@ -23,6 +26,7 @@ import com.netflix.service.SeasonsServiceI;
  * The Class SeasonController.
  */
 @RestController
+@SwaggerDefinition
 public class SeasonController {
 	
 	/** The season service. */
@@ -36,9 +40,10 @@ public class SeasonController {
 	 *
 	 * @param seriesId the series id
 	 * @return the list
+	 * @throws NetflixException 
 	 */
-	@GetMapping("/series/{seriesId}/seasons")
-	public List<Seasons> listSeasonsById(@PathVariable Long seriesId) {
+	@GetMapping("/tvShows/{tvShow-id}/seasons")
+	public List<Seasons> listSeasonsById(@PathVariable(value="tvShow-id") Long seriesId) throws NetflixException {
 		final TvShows tvShows = new TvShows();
 		tvShows.setId(seriesId);
 		return seasonService.findByTvShows(tvShows);
@@ -50,9 +55,11 @@ public class SeasonController {
 	 * @param seriesId the series id
 	 * @param seasonNumber the season number
 	 * @return the list
+	 * @throws NetflixException 
 	 */
-	@GetMapping("/series/{seriesId}/seasons/{seasonNumber}")
-	public List<Seasons> listTvShowsAndNumber(@PathVariable Long seriesId, @PathVariable int seasonNumber) {
+	@GetMapping("/tvShows/{tvShow-id}/seasons/{season-number}")
+	public List<Seasons> listTvShowsAndNumber(@PathVariable(value="tvShow-id") Long seriesId, 
+			@PathVariable(value="season-number") int seasonNumber) throws NetflixException {
 		final TvShows tvShows = new TvShows();
 		tvShows.setId(seriesId);
 		return seasonService.findByTvShowsAndNumber(tvShows,seasonNumber);
