@@ -24,6 +24,7 @@ import com.netflix.model.Categories;
 import com.netflix.model.TvShows;
 import com.netflix.service.TvShowsServiceI;
 
+import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.SwaggerDefinition;
 
 import com.netflix.service.CategoriesServiceI;
@@ -55,8 +56,11 @@ public class TvShowsController {
 	 * @return the list
 	 * @throws NetflixException 
 	 */
-	@GetMapping("/categories/{categoryId}")
-	public List<TvShows> listTvShowsByName(@PathVariable Long categoryId) throws NetflixException {
+	@ApiOperation(value = "Listamos las series por el Id de la categoria"
+            ,notes = "Este end point sirve para obtener una lista de las series pasandole como parámetro el category-id")
+	
+	@GetMapping("/categories/{category-id}")
+	public List<TvShows> listTvShowsByName(@PathVariable (value="category-id") Long categoryId) throws NetflixException {
 		return tvShowsService.findByCategoryId(categoryId);
 	}
 	
@@ -67,6 +71,9 @@ public class TvShowsController {
 	 * @return the tv shows
 	 * @throws NetflixException 
 	 */
+	@ApiOperation(value = "Listamos las series por el tvShow-id de la serie"
+            ,notes = "Este end point sirve para obtener las series, le pasamos el parámetro del tvShow-id")
+	
 	@GetMapping("/tvShows/{tvShow-id}")
 	public TvShows listTvShowsById(@PathVariable(value="tvShow-id") Long tvShowId) throws NetflixException {
 		return tvShowsService.findById(tvShowId);
@@ -80,6 +87,10 @@ public class TvShowsController {
 	 * @return the response entity
 	 * @throws NetflixException 
 	 */
+	@ApiOperation(value = "Añadimos una categoria nueva a una serie"
+            ,notes = "Este end point sirve añadir una categoria nueva a una serie, para ello debemos pasarle "
+            		+ "los parametros de listCategories y tvShowId")
+	
 	@PostMapping("/tvShows/categories/{tvShow-id}/")
 	public ResponseEntity<String> addCategoriesToTvShow(@PathVariable(value="tvShow-id") Long tvShowId, @RequestParam Set<Long> listCategories) throws NetflixException {
 		Set<Categories> categories = categoriesService.listCategoriesByIds(listCategories);

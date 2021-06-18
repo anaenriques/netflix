@@ -21,6 +21,7 @@ import com.netflix.model.TvShows;
 import com.netflix.service.CategoriesServiceI;
 import com.netflix.service.ChaptersServiceI;
 
+import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.SwaggerDefinition;
 
 
@@ -46,6 +47,10 @@ public class ChapterController {
 	 * @return the list
 	 * @throws NetflixException 
 	 */
+	@ApiOperation(value = "Listamos todos los capítulos y temporadas de una serie"
+            ,notes = "Este end point sirve para listar todos los capitulos y temporadas de una serie en concreto, para ello "
+            		+ "le pasamos por parámetro el tvShow-id de la serie y el season-number de la temporada")
+	
 	@GetMapping("/tvShows/{tvShow-id}/seasons/{season-number}/chapters")
 	public List<Chapters> listTvShowsAndNumber(@PathVariable(value="tvShow-id") long seriesId, @PathVariable(value="season-number") int seasonNumber) throws NetflixException {
 		return chapterService.findByTvShowsAndNumber(seriesId,seasonNumber);
@@ -60,6 +65,11 @@ public class ChapterController {
 	 * @return the chapters
 	 * @throws NetflixException 
 	 */
+	@ApiOperation(value = "Listamos el capítulo y temporada de una serie"
+            ,notes = "Este end point sirve para listar el capítulo y temporada de una serie, para ello "
+            		+ "le pasamos por parámetro el tvShow-id de la serie, el season-number de las temporada y"
+            		+ "el chapter-number de un capítulo")
+	
 	@GetMapping("/tvShows/{serie-id}/seasons/{season-number}/chapters/{chapter-number}")
 	public Chapters listTvShowsAndNumberAndChapterNumber(@PathVariable(value="serie-id") long seriesId, 
 			@PathVariable(value="season-number") int seasonNumber, @PathVariable(value="chapter-number") int chapterNumber) throws NetflixException {

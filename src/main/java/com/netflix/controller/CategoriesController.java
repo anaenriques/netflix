@@ -18,6 +18,7 @@ import com.netflix.exception.NetflixException;
 import com.netflix.model.Categories;
 import com.netflix.service.CategoriesServiceI;
 
+import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.SwaggerDefinition;
 
 
@@ -39,8 +40,11 @@ public class CategoriesController {
 	 * List all categories.
 	 *
 	 * @return the list
-	 * @throws NetflixException 
+	 * @throws NetflixException the netflix exception
 	 */
+	@ApiOperation(value = "Listamos las categorias"
+            ,notes = "Este end point sirve para listar todas las categorias")
+	
 	@GetMapping("/categories")
 	public List<Categories> listAllCategories() throws NetflixException {
 		return categoriesService.listAllCategories();

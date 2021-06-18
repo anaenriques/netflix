@@ -25,6 +25,7 @@ import javax.persistence.Table;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.netflix.model.TvShows;
 
+import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -88,6 +89,7 @@ public class TvShows implements Serializable{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "ID")
 	@JsonIgnore
+	@ApiModelProperty(position = 0)
 	private Long id;
 	
 	/** The name. */
