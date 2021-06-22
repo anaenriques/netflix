@@ -101,6 +101,9 @@ public class Seasons implements Serializable{
 	/** The chapters. */
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "seasons")
 	private List<Chapters> chapters;
+
+	
+	
 	
 	
 

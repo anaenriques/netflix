@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.netflix.exception.NetflixException;
 import com.netflix.model.Categories;
+import com.netflix.restModel.CategoriesRestModel;
 import com.netflix.service.CategoriesServiceI;
 
 import io.swagger.annotations.ApiOperation;
@@ -46,7 +47,7 @@ public class CategoriesController {
             ,notes = "Este end point sirve para listar todas las categorias")
 	
 	@GetMapping("/categories")
-	public List<Categories> listAllCategories() throws NetflixException {
+	public List<CategoriesRestModel> listAllCategories() throws NetflixException {
 		return categoriesService.listAllCategories();
 	}
 	

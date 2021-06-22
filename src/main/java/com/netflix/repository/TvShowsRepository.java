@@ -29,7 +29,6 @@ public interface TvShowsRepository  extends JpaRepository<TvShows, Long>{
 	 * @param categoryId the category id
 	 * @return the list
 	 */
-	public List<TvShows> findByCategoryId(Categories categoryId);
-
+	public List<TvShows> findByCategoriesId(Long categoryId);
 	
 }

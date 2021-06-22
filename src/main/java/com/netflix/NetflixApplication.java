@@ -5,8 +5,10 @@
  */
 package com.netflix;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Bean;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -14,6 +16,11 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  */
 @SpringBootApplication
 public class NetflixApplication {
+	
+	@Bean
+	ModelMapper modelMapper() {
+		return new ModelMapper();
+	}
 
 	/**
 	 * The main method.

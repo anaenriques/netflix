@@ -6,6 +6,7 @@
 package com.netflix.repository;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -48,5 +49,5 @@ public interface ChaptersRepository  extends JpaRepository<Chapters, Long>{
 			+" LEFT JOIN TV_SHOWS b ON a.tv_show_id=b.id "
 			+" WHERE b.id=?1 and a.number=?2 "
 			+" and c.number=?3", nativeQuery=true)
-	Chapters findChaptersByTvShowsAndNumberAndChapterNumber(long tvShowId, int seasonNumber, int chapterNumber);
+	Optional<Chapters> findChaptersByTvShowsAndNumberAndChapterNumber(long tvShowId, int seasonNumber, int chapterNumber);
 }

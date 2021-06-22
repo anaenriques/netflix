@@ -6,6 +6,7 @@
 package com.netflix.controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -18,6 +19,7 @@ import com.netflix.model.Categories;
 import com.netflix.model.Chapters;
 import com.netflix.model.Seasons;
 import com.netflix.model.TvShows;
+import com.netflix.restModel.ChaptersRestModel;
 import com.netflix.service.CategoriesServiceI;
 import com.netflix.service.ChaptersServiceI;
 
@@ -51,9 +53,9 @@ public class ChapterController {
             ,notes = "Este end point sirve para listar todos los capitulos y temporadas de una serie en concreto, para ello "
             		+ "le pasamos por parámetro el tvShow-id de la serie y el season-number de la temporada")
 	
-	@GetMapping("/tvShows/{tvShow-id}/seasons/{season-number}/chapters")
-	public List<Chapters> listTvShowsAndNumber(@PathVariable(value="tvShow-id") long seriesId, @PathVariable(value="season-number") int seasonNumber) throws NetflixException {
-		return chapterService.findByTvShowsAndNumber(seriesId,seasonNumber);
+	@GetMapping("/tvShows/{tvShowId}/seasons/{seasonNumber}/chapters")
+	public List<ChaptersRestModel> listTvShowsAndNumber(@PathVariable long tvShowId, @PathVariable(value="seasonNumber") int seasonNumber) throws NetflixException {
+		return chapterService.findByTvShowsAndNumber(tvShowId,seasonNumber);
 	}
 	
 	/**
@@ -70,10 +72,10 @@ public class ChapterController {
             		+ "le pasamos por parámetro el tvShow-id de la serie, el season-number de las temporada y"
             		+ "el chapter-number de un capítulo")
 	
-	@GetMapping("/tvShows/{serie-id}/seasons/{season-number}/chapters/{chapter-number}")
-	public Chapters listTvShowsAndNumberAndChapterNumber(@PathVariable(value="serie-id") long seriesId, 
-			@PathVariable(value="season-number") int seasonNumber, @PathVariable(value="chapter-number") int chapterNumber) throws NetflixException {
-		return chapterService.findByTvShowsAndNumberAndChapterNumber(seriesId,seasonNumber,chapterNumber);
+	@GetMapping("/tvShows/{tvShowId}/seasons/{seasonNumber}/chapters/{chapterNumber}")
+	public ChaptersRestModel listTvShowsAndNumberAndChapterNumber(@PathVariable long tvShowId, 
+			@PathVariable int seasonNumber, @PathVariable int chapterNumber) throws NetflixException {
+		return chapterService.findByTvShowsAndNumberAndChapterNumber(tvShowId,seasonNumber,chapterNumber);
 	}
 
 }

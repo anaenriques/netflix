@@ -6,16 +6,21 @@
 package com.netflix.service.impl;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
+import com.netflix.exception.NetflixException;
+import com.netflix.exception.NotFoundException;
 import com.netflix.model.Seasons;
 import com.netflix.model.TvShows;
 import com.netflix.repository.SeasonsRepository;
-import com.netflix.repository.TvShowsRepository;
+import com.netflix.restModel.SeasonsRestModel;
 import com.netflix.service.SeasonsServiceI;
+import com.netflix.utils.constants.ExceptionConstants;
 
 
 	// TODO: Auto-generated Javadoc
@@ -31,10 +36,11 @@ import com.netflix.service.SeasonsServiceI;
 	@Qualifier("SeasonsRepository")
 	private SeasonsRepository seasonsRepository;
 	
-	/** The tv shows repository. */
+	
+	/** The model mapper. */
 	@Autowired
-	@Qualifier("TvShowsRepository")
-	private TvShowsRepository tvShowsRepository;
+	private ModelMapper modelMapper;
+	
 	
 	/**
 	 * List all seasons.
@@ -42,19 +48,22 @@ import com.netflix.service.SeasonsServiceI;
 	 * @return the list
 	 */
 	@Override
-	public List<Seasons> listAllSeasons() {
-		return seasonsRepository.findAll();
+	public List<SeasonsRestModel> listAllSeasons() throws NetflixException{
+		//return seasonsRepository.findAll();
+		return seasonsRepository.findAll().stream().map(season -> modelMapper.map(season, SeasonsRestModel.class)).collect(Collectors.toList());
 	}
 	
 	/**
 	 * Find by id.
 	 *
-	 * @param seriesId the series id
+	 * @param tvShowId the tv show id
 	 * @return the seasons
+	 * @throws NetflixException the netflix exception
 	 */
 	@Override
-	public Seasons findById (Long seriesId){
-		return seasonsRepository.findById(seriesId).get();
+	public SeasonsRestModel findById (Long tvShowId) throws NetflixException{
+		Seasons seasons = seasonsRepository.findById(tvShowId).orElseThrow(() -> new NotFoundException(ExceptionConstants.MESSAGE_INEXISTENT_SEASON) );
+		return modelMapper.map(seasons, SeasonsRestModel.class);
 	}
 
 	/**
@@ -64,8 +73,8 @@ import com.netflix.service.SeasonsServiceI;
 	 * @return the list
 	 */
 	@Override
-	public List<Seasons> findByTvShows(TvShows tvshows) {
-		return seasonsRepository.findByTvShows(tvshows);
+	public List<SeasonsRestModel> findByTvShows(TvShows tvshows) {
+		return seasonsRepository.findByTvShows(tvshows).stream().map(tvShows -> modelMapper.map(tvShows, SeasonsRestModel.class)).collect(Collectors.toList());
 	}
 	
 	/**
@@ -76,8 +85,10 @@ import com.netflix.service.SeasonsServiceI;
 	 * @return the list
 	 */
 	@Override
-	public List<Seasons> findByTvShowsAndNumber(TvShows tvshows, int seasonNumber) {
-		return seasonsRepository.findByTvShowsAndNumber(tvshows,seasonNumber);
+	public SeasonsRestModel findByTvShowsIdAndNumber(Long tvShowId, int seasonNumber) throws NetflixException {
+		Seasons seasons = seasonsRepository.findByTvShowsIdAndNumber(tvShowId,seasonNumber);
+		return modelMapper.map(seasons, SeasonsRestModel.class);
+		
 	}
 	
 	

@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.netflix.exception.NetflixException;
 import com.netflix.model.Seasons;
 import com.netflix.model.TvShows;
+import com.netflix.restModel.SeasonsRestModel;
 import com.netflix.service.SeasonsServiceI;
 
 import io.swagger.annotations.ApiOperation;
@@ -47,8 +48,8 @@ public class SeasonController {
             ,notes = "Este end point sirve para listar todos los capitulos de una serie, para ello le pasamos como"
             		+ "parámetro el tvShow-id de la serie")
 	
-	@GetMapping("/tvShows/{tvShow-id}/seasons")
-	public List<Seasons> listSeasonsById(@PathVariable(value="tvShow-id") Long seriesId) throws NetflixException {
+	@GetMapping("/tvShows/{tvShowId}/seasons")
+	public List<SeasonsRestModel> listSeasonsById(@PathVariable(value="tvShowId") Long seriesId) throws NetflixException {
 		final TvShows tvShows = new TvShows();
 		tvShows.setId(seriesId);
 		return seasonService.findByTvShows(tvShows);
@@ -66,12 +67,10 @@ public class SeasonController {
             ,notes = "Este end point sirve para listar el número de temporadas de una serie, para ello le pasamos como"
             		+ "parámetro el tvShow-id de la serie y el season-number de la temporada")
 	
-	@GetMapping("/tvShows/{tvShow-id}/seasons/{season-number}")
-	public List<Seasons> listTvShowsAndNumber(@PathVariable(value="tvShow-id") Long seriesId, 
-			@PathVariable(value="season-number") int seasonNumber) throws NetflixException {
-		final TvShows tvShows = new TvShows();
-		tvShows.setId(seriesId);
-		return seasonService.findByTvShowsAndNumber(tvShows,seasonNumber);
+	@GetMapping("/tvShows/{tvShowId}/seasons/{seasonNumber}")
+	public SeasonsRestModel listTvShowsAndNumber(@PathVariable Long tvShowId, 
+			@PathVariable(value="seasonNumber") int seasonNumber) throws NetflixException {
+		return seasonService.findByTvShowsIdAndNumber(tvShowId,seasonNumber);
 	}
 	
 

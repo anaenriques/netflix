@@ -6,15 +6,22 @@
 package com.netflix.service.impl;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import com.netflix.exception.NetflixException;
+import com.netflix.exception.NotFoundException;
 import com.netflix.model.Chapters;
+import com.netflix.model.Seasons;
 import com.netflix.repository.ChaptersRepository;
+import com.netflix.restModel.ChaptersRestModel;
+import com.netflix.restModel.SeasonsRestModel;
 import com.netflix.service.ChaptersServiceI;
+import com.netflix.utils.constants.ExceptionConstants;
 
 
 	// TODO: Auto-generated Javadoc
@@ -30,7 +37,11 @@ import com.netflix.service.ChaptersServiceI;
 	@Qualifier("ChaptersRepository")
 	private ChaptersRepository chaptersRepository;
 	
-
+	/** The model mapper. */
+	@Autowired
+	private ModelMapper modelMapper;
+	
+	
 	/**
 	 * Find by tv shows and number.
 	 *
@@ -39,8 +50,8 @@ import com.netflix.service.ChaptersServiceI;
 	 * @return the list
 	 */
 	@Override
-	public List<Chapters> findByTvShowsAndNumber(long tvshowId, int seasonNumber) throws NetflixException{
-		return chaptersRepository.listTvShowsAndNumber(tvshowId,seasonNumber);
+	public List<ChaptersRestModel> findByTvShowsAndNumber(long tvshowId, int seasonNumber) throws NetflixException{
+		return chaptersRepository.listTvShowsAndNumber(tvshowId,seasonNumber).stream().map(chapters -> modelMapper.map(chapters, ChaptersRestModel.class)).collect(Collectors.toList());
 	}
 	
 	/**
@@ -52,8 +63,10 @@ import com.netflix.service.ChaptersServiceI;
 	 * @return the chapters
 	 */
 	@Override
-	public Chapters findByTvShowsAndNumberAndChapterNumber(long tvshowId, int seasonNumber, int chapterNumber) throws NetflixException{
-		return chaptersRepository.findChaptersByTvShowsAndNumberAndChapterNumber(tvshowId,seasonNumber,chapterNumber);
+	public ChaptersRestModel findByTvShowsAndNumberAndChapterNumber(long tvshowId, int seasonNumber, int chapterNumber) throws NetflixException{
+		//return chaptersRepository.findChaptersByTvShowsAndNumberAndChapterNumber(tvshowId,seasonNumber,chapterNumber);
+		Chapters chapters = chaptersRepository.findChaptersByTvShowsAndNumberAndChapterNumber(tvshowId,seasonNumber, chapterNumber).orElseThrow(() -> new NotFoundException(ExceptionConstants.MESSAGE_INEXISTENT_CHAPTER) );
+		return modelMapper.map(chapters, ChaptersRestModel.class);
 	}
 	
 

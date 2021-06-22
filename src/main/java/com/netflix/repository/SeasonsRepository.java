@@ -38,5 +38,5 @@ public interface SeasonsRepository  extends JpaRepository<Seasons, Long>{
 	 * @param seasonNumber the season number
 	 * @return the list
 	 */
-	List<Seasons> findByTvShowsAndNumber(TvShows tvShow, int seasonNumber);
+	Seasons findByTvShowsIdAndNumber(Long tvShowId, int seasonNumber);
 }

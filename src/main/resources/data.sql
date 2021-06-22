@@ -21,3 +21,9 @@ INSERT INTO CHAPTERS(ID, NUMBER, NAME, DURATION, SEASON_ID) VALUES
 	(2, 2, 'Chapter 2', 45, 1), 
 	(3, 3, 'Chapter 3', 44, 1),
 	(4, 1, 'Chapter 0', 50, 2);
+
+INSERT INTO CATEGORY_TVSHOWS(ID, TVSHOW_ID, CATEGORY_ID) VALUES
+    (1,1,1),
+    (2,1,2),
+    (3,2,1),
+    (4,2,3)

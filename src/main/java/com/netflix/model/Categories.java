@@ -30,6 +30,8 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
 // TODO: Auto-generated Javadoc
@@ -73,6 +75,7 @@ import lombok.Setter;
  * @return the java.lang. string
  */
 @Builder
+@RequiredArgsConstructor
 public class Categories implements Serializable{
 	
 	/** The Constant serialVersionUID. */
@@ -83,6 +86,7 @@ public class Categories implements Serializable{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "ID")
 	@JsonIgnore
+	@NonNull
 	private Long id;
 	
 	/** The name. */

@@ -10,6 +10,7 @@ import java.util.List;
 import com.netflix.exception.NetflixException;
 import com.netflix.model.Seasons;
 import com.netflix.model.TvShows;
+import com.netflix.restModel.SeasonsRestModel;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -23,7 +24,7 @@ public interface SeasonsServiceI {
 	 * @return the list
 	 * @throws NetflixException the netflix exception
 	 */
-	List<Seasons> listAllSeasons() throws NetflixException;
+	List<SeasonsRestModel> listAllSeasons() throws NetflixException;
 	
 	/**
 	 * Find by id.
@@ -32,7 +33,7 @@ public interface SeasonsServiceI {
 	 * @return the seasons
 	 * @throws NetflixException the netflix exception
 	 */
-	Seasons findById(Long seriesId) throws NetflixException;
+	SeasonsRestModel findById(Long tvShowId) throws NetflixException;
 	
 	/**
 	 * Find by tv shows.
@@ -41,7 +42,7 @@ public interface SeasonsServiceI {
 	 * @return the list
 	 * @throws NetflixException the netflix exception
 	 */
-	List<Seasons> findByTvShows(TvShows tvshows) throws NetflixException;
+	List<SeasonsRestModel> findByTvShows(TvShows tvshows) throws NetflixException;
 	
 	/**
 	 * Find by tv shows and number.
@@ -51,6 +52,6 @@ public interface SeasonsServiceI {
 	 * @return the list
 	 * @throws NetflixException the netflix exception
 	 */
-	List<Seasons> findByTvShowsAndNumber(TvShows tvshows,int seasonNumber)throws NetflixException; 
+	SeasonsRestModel findByTvShowsIdAndNumber(Long tvshowId,int seasonNumber)throws NetflixException; 
 
 }

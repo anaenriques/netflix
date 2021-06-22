@@ -10,6 +10,7 @@ import java.util.Set;
 
 import com.netflix.exception.NetflixException;
 import com.netflix.model.Categories;
+import com.netflix.restModel.CategoriesRestModel;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -23,7 +24,7 @@ public interface CategoriesServiceI {
 	 * @return the list
 	 * @throws NetflixException the netflix exception
 	 */
-	List<Categories> listAllCategories() throws NetflixException;
+	List<CategoriesRestModel> listAllCategories() throws NetflixException;
 
 	
 	/**

@@ -73,9 +73,6 @@ public class TvShowsRestModel implements Serializable{
 	@JsonProperty(value="RECOMMENDED_AGE")
 	private int recommendedAge;
 	
-	@JsonProperty(value="categoryId")
-	private Categories categoryId;
-	
 	@JsonProperty(value="ADVERTISING")
 	private String advertising;
 	
