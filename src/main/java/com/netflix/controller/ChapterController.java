@@ -11,7 +11,9 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -22,9 +24,11 @@ import com.netflix.model.Seasons;
 import com.netflix.model.TvShows;
 import com.netflix.response.NetflixResponse;
 import com.netflix.restModel.ChaptersRestModel;
+import com.netflix.restModel.TvShowsRestModel;
 import com.netflix.service.CategoriesServiceI;
 import com.netflix.service.ChaptersServiceI;
 import com.netflix.utils.constants.CommonConstants;
+import com.netflix.utils.constants.RestConstants;
 
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.SwaggerDefinition;
@@ -64,11 +68,11 @@ public class ChapterController {
 	/**
 	 * List tv shows and number and chapter number.
 	 *
-	 * @param seriesId the series id
+	 * @param tvShowId the tv show id
 	 * @param seasonNumber the season number
 	 * @param chapterNumber the chapter number
 	 * @return the chapters
-	 * @throws NetflixException 
+	 * @throws NetflixException the netflix exception
 	 */
 	@ApiOperation(value = "Listamos el capítulo y temporada de una serie"
             ,notes = "Este end point sirve para listar el capítulo y temporada de una serie, para ello "
@@ -78,8 +82,27 @@ public class ChapterController {
 	@GetMapping("/tvShows/{tvShowId}/seasons/{seasonNumber}/chapters/{chapterNumber}")
 	public NetflixResponse<ChaptersRestModel> listTvShowsAndNumberAndChapterNumber(@PathVariable long tvShowId, 
 			@PathVariable int seasonNumber, @PathVariable int chapterNumber) throws NetflixException {
+		
 		return new NetflixResponse<>(CommonConstants.SUCCESS, String.valueOf(HttpStatus.OK),CommonConstants.OK,chapterService.findByTvShowsAndNumberAndChapterNumber(tvShowId,seasonNumber,chapterNumber));
 	}
 	
+	/**
+	 * Update tv show name.
+	 *
+	 * @param tvShowId the tv show id
+	 * @param tvShowName the tv show name
+	 * @return the netflix response
+	 * @throws NetflixException the netflix exception
+	 */
+	@ApiOperation(value = "Actualizamos el nombre de un capitulo"
+			, notes = "Este end point sirve para actualizar el nombre de un capitulo por su Id")
+	
+	@PatchMapping(value = RestConstants.RESOURCE_CHAPTER_UPDATE_NAME, produces = MediaType.APPLICATION_JSON_VALUE)
+	
+	public NetflixResponse<ChaptersRestModel> updateChapterName(@PathVariable Long chapterId, @PathVariable String chapterName) throws NetflixException  {
+		
+		return new NetflixResponse<>(CommonConstants.SUCCESS, String.valueOf(HttpStatus.OK), CommonConstants.OK,
+				chapterService.updateChapterName(chapterId, chapterName));
+	}	
 
 }

@@ -21,11 +21,17 @@ public class RestConstants {
 	/** The Constant RESOURCE_TV_SHOW. */
 	public static final String RESOURCE_TV_SHOW = "/tv-shows";
 	
+	/** The Constant RESOURCE_TV_SHOW_UPDATE_NAME. */
+	public static final String RESOURCE_TV_SHOW_UPDATE_NAME = "/tv-shows/{tvShowId}/name/{tvShowName}";
+	
 	/** The Constant RESOURCE_SEASON. */
 	public static final String RESOURCE_SEASON = "/tv-shows/{tvShowId}/seasons";
 	
 	/** The Constant RESOURCE_CHAPTER. */
 	public static final String RESOURCE_CHAPTER = "/tv-shows/{tvShowId}/seasons/{seasonNumber}/chapters";
+	
+	/** The Constant RESOURCE_TV_SHOW_UPDATE_NAME. */
+	public static final String RESOURCE_CHAPTER_UPDATE_NAME = "/chapters/{chapterId}/name/{chapterName}";
 	
 	/** The Constant RESOURCE_ID. */
 	public static final String RESOURCE_ID = "/{id}";

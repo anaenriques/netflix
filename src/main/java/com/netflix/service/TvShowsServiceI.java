@@ -34,18 +34,35 @@ public interface TvShowsServiceI {
 	 * @param tvShowId the tv show id
 	 * @return the tv shows
 	 * @throws NetflixException the netflix exception
-	 * @throws Exception 
 	 */
 	TvShowsRestModel findById(Long tvShowId)throws NetflixException;
 	
+	/**
+	 * Adds the category.
+	 *
+	 * @param tvShowId the tv show id
+	 * @param listCategories the list categories
+	 * @return the tv shows rest model
+	 * @throws NetflixException the netflix exception
+	 */
 	TvShowsRestModel addCategory(Long tvShowId, Set<Long> listCategories)throws NetflixException;
 	
 	/**
 	 * Update tv show.
 	 *
-	 * @param tvShow the tv show
+	 * @param tvShowId the tv show id
 	 * @return the tv shows
 	 * @throws NetflixException the netflix exception
 	 */
 	TvShowsRestModel updateTvShows(Long tvShowId)throws NetflixException;
+	
+	/**
+	 * Update tv show name.
+	 *
+	 * @param tvShowId the tv show id
+	 * @param tvShowName the tv show name
+	 * @return the tv shows rest model
+	 * @throws NetflixException the netflix exception
+	 */
+	TvShowsRestModel updateTvShowName(Long tvShowId, String tvShowName)throws NetflixException;
 }

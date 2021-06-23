@@ -110,5 +110,21 @@ public class TvShowsServiceImpl implements TvShowsServiceI {
 		tvShowsRepository.save(tvShows);
 		return modelMapper.map(tvShows, TvShowsRestModel.class);
 	}
+	
+	/**
+	 * Update tv shows.
+	 *
+	 * @param tvShowId the tv show id
+	 * @return the tv shows rest model
+	 * @throws NetflixException the netflix exception
+	 */
+	@Override
+	public TvShowsRestModel updateTvShowName(Long tvShowId, String tvShowName) throws NetflixException{
+		
+		TvShows tvShows = tvShowsRepository.findById(tvShowId).orElseThrow(() -> new NotFoundException(ExceptionConstants.MESSAGE_INEXISTENT_TVSHOW) );
+		tvShows.setName(tvShowName);
+		tvShowsRepository.save(tvShows);
+		return modelMapper.map(tvShows, TvShowsRestModel.class);
+	}
 
 }

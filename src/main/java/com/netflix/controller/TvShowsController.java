@@ -12,20 +12,21 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.netflix.exception.NetflixException;
-import com.netflix.model.Categories;
-import com.netflix.model.TvShows;
 import com.netflix.response.NetflixResponse;
 import com.netflix.restModel.TvShowsRestModel;
 import com.netflix.service.TvShowsServiceI;
 import com.netflix.utils.constants.CommonConstants;
+import com.netflix.utils.constants.RestConstants;
 
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.SwaggerDefinition;
@@ -98,4 +99,20 @@ public class TvShowsController {
 	public ResponseEntity<String> addCategoriesToTvShow(@PathVariable(value="tvShow-id") Long tvShowId, @RequestParam Set<Long> listCategories) throws NetflixException {
 		return ResponseEntity.status(HttpStatus.OK).body("La categoria se ha insertado correctamente");
 	}
+	
+	/**
+	 * Update tv show name.
+	 * @param tvShowId the tv show id
+	 * @param tvShowName the tv show name
+	 */
+	@ApiOperation(value = "Actualizamos el nombre de una serie"
+			, notes = "Este end point sirve para actualizar el nombre de una serie por su Id")
+	
+	@PatchMapping(value = RestConstants.RESOURCE_TV_SHOW_UPDATE_NAME, produces = MediaType.APPLICATION_JSON_VALUE)
+	
+	public NetflixResponse<TvShowsRestModel> updateTvShowName(@PathVariable Long tvShowId, @PathVariable String tvShowName) throws NetflixException  {
+		
+		return new NetflixResponse<>(CommonConstants.SUCCESS, String.valueOf(HttpStatus.OK), CommonConstants.OK,
+				tvShowsService.updateTvShowName(tvShowId, tvShowName));
+	}	
 }
