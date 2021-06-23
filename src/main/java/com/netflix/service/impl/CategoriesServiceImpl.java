@@ -18,10 +18,8 @@ import org.springframework.stereotype.Service;
 import com.netflix.exception.NetflixException;
 import com.netflix.exception.NotFoundException;
 import com.netflix.model.Categories;
-import com.netflix.model.TvShows;
 import com.netflix.repository.CategoriesRepository;
 import com.netflix.restModel.CategoriesRestModel;
-import com.netflix.restModel.TvShowsRestModel;
 import com.netflix.service.CategoriesServiceI;
 import com.netflix.utils.constants.ExceptionConstants;
 
@@ -52,7 +50,12 @@ import com.netflix.utils.constants.ExceptionConstants;
 	 */
 	@Override
 	public List<CategoriesRestModel> listAllCategories() throws NetflixException{
-		return categoriesRepository.findAll().stream().map(category -> modelMapper.map(category, CategoriesRestModel.class)).collect(Collectors.toList());
+
+		List<Categories> categories=categoriesRepository.findAll();
+		if (categories.isEmpty()) {
+			throw new NotFoundException(ExceptionConstants.MESSAGE_INEXISTENT_CATEGORY);
+		}
+		return categories.stream().map(category -> modelMapper.map(category, CategoriesRestModel.class)).collect(Collectors.toList());
 	}
 	
 	
@@ -65,6 +68,12 @@ import com.netflix.utils.constants.ExceptionConstants;
 	 */
 	@Override
 	public Set<Categories> listCategoriesByIds(Set<Long> listCategoriesIds) throws NetflixException{
-		return new HashSet<>(categoriesRepository.findAllById(listCategoriesIds));
+		
+		Set<Categories> categories=new HashSet<>(categoriesRepository.findAllById(listCategoriesIds));
+		
+		if (categories.isEmpty()) {
+			throw new NotFoundException(ExceptionConstants.MESSAGE_INEXISTENT_CATEGORY);
+		}
+		return categories;
 	}
 }

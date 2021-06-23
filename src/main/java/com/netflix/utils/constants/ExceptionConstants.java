@@ -17,6 +17,9 @@ public class ExceptionConstants {
 	
 	/** The Constant MESSAGE_INEXISTENT_TVSHOW. */
 	public static final String MESSAGE_INEXISTENT_TVSHOW = "TVSHOW INEXISTENT - TVSHOW does not exist";
+	
+	/** The Constant MESSAGE_INEXISTENT_CATEGORY. */
+	public static final String MESSAGE_INEXISTENT_CATEGORY = "CATEGORY INEXISTENT - CATEGORY does not exist";
 
 	/** The Constant INTERNAL_SERVER_ERROR. */
 	public static final String INTERNAL_SERVER_ERROR = "INTERNAL_SERVER_ERROR - An internal server error has ocurred";

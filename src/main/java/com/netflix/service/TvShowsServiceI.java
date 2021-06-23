@@ -6,6 +6,7 @@
 package com.netflix.service;
 
 import java.util.List;
+import java.util.Set;
 
 import com.netflix.exception.NetflixException;
 import com.netflix.model.TvShows;
@@ -36,6 +37,8 @@ public interface TvShowsServiceI {
 	 * @throws Exception 
 	 */
 	TvShowsRestModel findById(Long tvShowId)throws NetflixException;
+	
+	TvShowsRestModel addCategory(Long tvShowId, Set<Long> listCategories)throws NetflixException;
 	
 	/**
 	 * Update tv show.

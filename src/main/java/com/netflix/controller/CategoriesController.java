@@ -9,6 +9,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -16,8 +17,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.netflix.exception.NetflixException;
 import com.netflix.model.Categories;
+import com.netflix.response.NetflixResponse;
 import com.netflix.restModel.CategoriesRestModel;
 import com.netflix.service.CategoriesServiceI;
+import com.netflix.utils.constants.CommonConstants;
 
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.SwaggerDefinition;
@@ -47,8 +50,8 @@ public class CategoriesController {
             ,notes = "Este end point sirve para listar todas las categorias")
 	
 	@GetMapping("/categories")
-	public List<CategoriesRestModel> listAllCategories() throws NetflixException {
-		return categoriesService.listAllCategories();
+	public NetflixResponse<List<CategoriesRestModel>> listAllCategories() throws NetflixException {
+		return new NetflixResponse<>(CommonConstants.SUCCESS, String.valueOf(HttpStatus.OK),CommonConstants.OK,categoriesService.listAllCategories());
 	}
 	
 	

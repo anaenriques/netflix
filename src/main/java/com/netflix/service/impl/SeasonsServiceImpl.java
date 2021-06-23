@@ -46,11 +46,17 @@ import com.netflix.utils.constants.ExceptionConstants;
 	 * List all seasons.
 	 *
 	 * @return the list
+	 * @throws NetflixException the netflix exception
 	 */
 	@Override
 	public List<SeasonsRestModel> listAllSeasons() throws NetflixException{
-		//return seasonsRepository.findAll();
-		return seasonsRepository.findAll().stream().map(season -> modelMapper.map(season, SeasonsRestModel.class)).collect(Collectors.toList());
+		
+		List<Seasons> seasons=seasonsRepository.findAll();
+		
+		if (seasons.isEmpty()) {
+			throw new NotFoundException(ExceptionConstants.MESSAGE_INEXISTENT_SEASON);
+		}
+		return seasons.stream().map(season -> modelMapper.map(season, SeasonsRestModel.class)).collect(Collectors.toList());
 	}
 	
 	/**
@@ -62,30 +68,42 @@ import com.netflix.utils.constants.ExceptionConstants;
 	 */
 	@Override
 	public SeasonsRestModel findById (Long tvShowId) throws NetflixException{
+		
 		Seasons seasons = seasonsRepository.findById(tvShowId).orElseThrow(() -> new NotFoundException(ExceptionConstants.MESSAGE_INEXISTENT_SEASON) );
 		return modelMapper.map(seasons, SeasonsRestModel.class);
 	}
 
+	
 	/**
 	 * Find by tv shows.
 	 *
 	 * @param tvshows the tvshows
 	 * @return the list
+	 * @throws NotFoundException the not found exception
 	 */
 	@Override
-	public List<SeasonsRestModel> findByTvShows(TvShows tvshows) {
-		return seasonsRepository.findByTvShows(tvshows).stream().map(tvShows -> modelMapper.map(tvShows, SeasonsRestModel.class)).collect(Collectors.toList());
+	public List<SeasonsRestModel> findByTvShows(TvShows tvshows) throws NotFoundException {
+		
+		List<Seasons> seasons=seasonsRepository.findByTvShows(tvshows);
+		
+		if (seasons.isEmpty()) {
+			throw new NotFoundException(ExceptionConstants.MESSAGE_INEXISTENT_SEASON);
+		}
+		return seasons.stream().map(season -> modelMapper.map(season, SeasonsRestModel.class)).collect(Collectors.toList());
 	}
 	
+	
 	/**
-	 * Find by tv shows and number.
+	 * Find by tv shows id and number.
 	 *
-	 * @param tvshows the tvshows
+	 * @param tvShowId the tv show id
 	 * @param seasonNumber the season number
-	 * @return the list
+	 * @return the seasons rest model
+	 * @throws NetflixException the netflix exception
 	 */
 	@Override
 	public SeasonsRestModel findByTvShowsIdAndNumber(Long tvShowId, int seasonNumber) throws NetflixException {
+		
 		Seasons seasons = seasonsRepository.findByTvShowsIdAndNumber(tvShowId,seasonNumber);
 		return modelMapper.map(seasons, SeasonsRestModel.class);
 		

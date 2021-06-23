@@ -22,8 +22,10 @@ import org.springframework.web.bind.annotation.RestController;
 import com.netflix.exception.NetflixException;
 import com.netflix.model.Categories;
 import com.netflix.model.TvShows;
+import com.netflix.response.NetflixResponse;
 import com.netflix.restModel.TvShowsRestModel;
 import com.netflix.service.TvShowsServiceI;
+import com.netflix.utils.constants.CommonConstants;
 
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.SwaggerDefinition;
@@ -55,14 +57,14 @@ public class TvShowsController {
 	 *
 	 * @param categoryId the category id
 	 * @return the list
-	 * @throws NetflixException 
+	 * @throws NetflixException the netflix exception
 	 */
 	@ApiOperation(value = "Listamos las series por el Id de la categoria"
             ,notes = "Este end point sirve para obtener una lista de las series pasandole como parámetro el category-id")
 	
 	@GetMapping("/categories/{categoryId}")
-	public List<TvShowsRestModel> listTvShowsByName(@PathVariable Long categoryId) throws NetflixException {
-		return tvShowsService.findByCategoryId(categoryId);
+	public NetflixResponse<List<TvShowsRestModel>> listTvShowsByName(@PathVariable Long categoryId) throws NetflixException {
+		return new NetflixResponse<>(CommonConstants.SUCCESS, String.valueOf(HttpStatus.OK),CommonConstants.OK,tvShowsService.findByCategoryId(categoryId));
 	}
 	
 	/**
@@ -70,14 +72,14 @@ public class TvShowsController {
 	 *
 	 * @param tvShowId the tv show id
 	 * @return the tv shows
-	 * @throws NetflixException 
+	 * @throws NetflixException the netflix exception
 	 */
 	@ApiOperation(value = "Listamos las series por el tvShow-id de la serie"
             ,notes = "Este end point sirve para obtener las series, le pasamos el parámetro del tvShow-id")
 	
 	@GetMapping("/tvShows/{tvShow-id}")
-	public TvShowsRestModel listTvShowsById(@PathVariable(value="tvShow-id") Long tvShowId) throws NetflixException {
-		return tvShowsService.findById(tvShowId);
+	public NetflixResponse<TvShowsRestModel> listTvShowsById(@PathVariable(value="tvShow-id") Long tvShowId) throws NetflixException {
+		return new NetflixResponse<>(CommonConstants.SUCCESS, String.valueOf(HttpStatus.OK),CommonConstants.OK,tvShowsService.findById(tvShowId));
 	}
 	
 	/**
@@ -94,10 +96,6 @@ public class TvShowsController {
 	
 	@PostMapping("/tvShows/{tvShow-id}/categories")
 	public ResponseEntity<String> addCategoriesToTvShow(@PathVariable(value="tvShow-id") Long tvShowId, @RequestParam Set<Long> listCategories) throws NetflixException {
-//		Set<Categories> categories = categoriesService.listCategoriesByIds(listCategories);
-//		TvShows tvShow = tvShowsService.findById(tvShowId);
-//		tvShow.getCategories().addAll(categories);
-//		tvShowsService.updateTvShows(tvShow);
 		return ResponseEntity.status(HttpStatus.OK).body("La categoria se ha insertado correctamente");
 	}
 }
