@@ -6,6 +6,7 @@
 package com.netflix.repository;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -30,5 +31,6 @@ public interface TvShowsRepository  extends JpaRepository<TvShows, Long>{
 	 * @return the list
 	 */
 	public List<TvShows> findByCategoriesId(Long categoryId);
+
 	
 }

@@ -15,6 +15,7 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.netflix.exception.NetflixException;
@@ -40,6 +41,7 @@ import io.swagger.annotations.SwaggerDefinition;
  */
 @RestController
 @SwaggerDefinition
+@RequestMapping(RestConstants.RESOURCE_CHAPTER)
 public class ChapterController {
 	
 	/** The chapter service. */
@@ -60,7 +62,6 @@ public class ChapterController {
             ,notes = "Este end point sirve para listar todos los capitulos y temporadas de una serie en concreto, para ello "
             		+ "le pasamos por parámetro el tvShow-id de la serie y el season-number de la temporada")
 	
-	@GetMapping("/tvShows/{tvShowId}/seasons/{seasonNumber}/chapters")
 	public NetflixResponse<List<ChaptersRestModel>> listTvShowsAndNumber(@PathVariable long tvShowId, @PathVariable(value="seasonNumber") int seasonNumber) throws NetflixException {
 		return new NetflixResponse<>(CommonConstants.SUCCESS, String.valueOf(HttpStatus.OK),CommonConstants.OK,chapterService.findByTvShowsAndNumber(tvShowId,seasonNumber));
 	}
@@ -79,9 +80,9 @@ public class ChapterController {
             		+ "le pasamos por parámetro el tvShow-id de la serie, el season-number de las temporada y"
             		+ "el chapter-number de un capítulo")
 	
-	@GetMapping("/tvShows/{tvShowId}/seasons/{seasonNumber}/chapters/{chapterNumber}")
+	@GetMapping(value = RestConstants.RESOURCE_NUMBER)
 	public NetflixResponse<ChaptersRestModel> listTvShowsAndNumberAndChapterNumber(@PathVariable long tvShowId, 
-			@PathVariable int seasonNumber, @PathVariable int chapterNumber) throws NetflixException {
+			@PathVariable int seasonNumber, @PathVariable(value="number") int chapterNumber) throws NetflixException {
 		
 		return new NetflixResponse<>(CommonConstants.SUCCESS, String.valueOf(HttpStatus.OK),CommonConstants.OK,chapterService.findByTvShowsAndNumberAndChapterNumber(tvShowId,seasonNumber,chapterNumber));
 	}

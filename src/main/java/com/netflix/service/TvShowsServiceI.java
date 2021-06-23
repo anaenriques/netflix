@@ -65,4 +65,14 @@ public interface TvShowsServiceI {
 	 * @throws NetflixException the netflix exception
 	 */
 	TvShowsRestModel updateTvShowName(Long tvShowId, String tvShowName)throws NetflixException;
+	
+	
+	/**
+	 * Delete by tv show id.
+	 *
+	 * @param tvShowId the tv show id
+	 * @return the tv shows rest model
+	 * @throws NetflixException the netflix exception
+	 */
+	void deleteByTvShowId(Long tvShowId) throws NetflixException;
 }
