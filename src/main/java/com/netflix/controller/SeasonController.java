@@ -54,7 +54,7 @@ public class SeasonController {
             ,notes = "Este end point sirve para listar todos los capitulos de una serie, para ello le pasamos como"
             		+ "parámetro el tvShow-id de la serie")
 	
-	//@GetMapping("/tvShows/{tvShowId}/seasons")
+	@GetMapping
 	public NetflixResponse<List<SeasonsRestModel>> listSeasonsById(@PathVariable(value="tvShowId") Long seriesId) throws NetflixException {
 		final TvShows tvShows = new TvShows();
 		tvShows.setId(seriesId);
