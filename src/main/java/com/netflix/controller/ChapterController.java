@@ -6,7 +6,6 @@
 package com.netflix.controller;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -19,14 +18,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.netflix.exception.NetflixException;
-import com.netflix.model.Categories;
-import com.netflix.model.Chapters;
-import com.netflix.model.Seasons;
-import com.netflix.model.TvShows;
 import com.netflix.response.NetflixResponse;
 import com.netflix.restModel.ChaptersRestModel;
-import com.netflix.restModel.TvShowsRestModel;
-import com.netflix.service.CategoriesServiceI;
 import com.netflix.service.ChaptersServiceI;
 import com.netflix.utils.constants.CommonConstants;
 import com.netflix.utils.constants.RestConstants;

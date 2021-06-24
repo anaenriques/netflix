@@ -16,13 +16,8 @@ import org.springframework.stereotype.Service;
 import com.netflix.exception.NetflixException;
 import com.netflix.exception.NotFoundException;
 import com.netflix.model.Chapters;
-import com.netflix.model.Seasons;
-import com.netflix.model.TvShows;
 import com.netflix.repository.ChaptersRepository;
-import com.netflix.response.NetflixResponse;
 import com.netflix.restModel.ChaptersRestModel;
-import com.netflix.restModel.SeasonsRestModel;
-import com.netflix.restModel.TvShowsRestModel;
 import com.netflix.service.ChaptersServiceI;
 import com.netflix.utils.constants.ExceptionConstants;
 

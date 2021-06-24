@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.netflix.exception.NetflixException;
-import com.netflix.model.Seasons;
 import com.netflix.model.TvShows;
 import com.netflix.response.NetflixResponse;
 import com.netflix.restModel.SeasonsRestModel;

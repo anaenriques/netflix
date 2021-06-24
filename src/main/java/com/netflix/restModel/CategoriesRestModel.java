@@ -10,7 +10,9 @@ import java.io.Serializable;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 // TODO: Auto-generated Javadoc
 
@@ -31,7 +33,21 @@ import lombok.Setter;
  *
  * @param name the new name
  */
-@Setter 
+@Setter
+
+/**
+ * Instantiates a new categories rest model.
+ *
+ * @param id the id
+ * @param name the name
+ */
+@AllArgsConstructor
+
+/**
+ * Instantiates a new categories rest model.
+ */
+@NoArgsConstructor
+
 public class CategoriesRestModel implements Serializable{
 	
 	/** The Constant serialVersionUID. */

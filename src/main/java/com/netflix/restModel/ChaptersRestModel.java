@@ -10,7 +10,9 @@ import java.io.Serializable;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 // TODO: Auto-generated Javadoc
@@ -24,6 +26,12 @@ import lombok.Setter;
  *
  * @return the duration
  */
+
+/**
+ * Gets the duration.
+ *
+ * @return the duration
+ */
 @Getter
 
 /**
@@ -31,7 +39,28 @@ import lombok.Setter;
  *
  * @param duration the new duration
  */
-@Setter 
+
+/**
+ * Sets the duration.
+ *
+ * @param duration the new duration
+ */
+@Setter
+
+/**
+ * Instantiates a new chapters rest model.
+ *
+ * @param id the id
+ * @param number the number
+ * @param name the name
+ * @param duration the duration
+ */
+@AllArgsConstructor
+
+/**
+ * Instantiates a new chapters rest model.
+ */
+@NoArgsConstructor
 public class ChaptersRestModel implements Serializable{
 	
 	
