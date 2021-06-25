@@ -31,7 +31,7 @@ public class RestConstants {
 	public static final String RESOURCE_CHAPTER = "/tv-shows/{tvShowId}/seasons/{seasonNumber}/chapters";
 	
 	/** The Constant RESOURCE_TV_SHOW_UPDATE_NAME. */
-	public static final String RESOURCE_CHAPTER_UPDATE_NAME = "/chapters/{chapterId}/name/{chapterName}";
+	public static final String RESOURCE_CHAPTER_UPDATE_NAME = "/{chapterId}/name/{chapterName}";
 	
 	/** The Constant RESOURCE_ID. */
 	public static final String RESOURCE_ID = "/{id}";

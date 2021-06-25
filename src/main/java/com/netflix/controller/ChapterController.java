@@ -34,7 +34,7 @@ import io.swagger.annotations.SwaggerDefinition;
  */
 @RestController
 @SwaggerDefinition
-@RequestMapping(RestConstants.RESOURCE_CHAPTER)
+@RequestMapping
 public class ChapterController {
 	
 	/** The chapter service. */
@@ -54,7 +54,8 @@ public class ChapterController {
 	@ApiOperation(value = "Listamos todos los capítulos y temporadas de una serie"
             ,notes = "Este end point sirve para listar todos los capitulos y temporadas de una serie en concreto, para ello "
             		+ "le pasamos por parámetro el tvShow-id de la serie y el season-number de la temporada")
-	@GetMapping
+	
+	@GetMapping(value = RestConstants.RESOURCE_CHAPTER)
 	public NetflixResponse<List<ChaptersRestModel>> listTvShowsAndNumber(@PathVariable long tvShowId, @PathVariable(value="seasonNumber") int seasonNumber) throws NetflixException {
 		return new NetflixResponse<>(CommonConstants.SUCCESS, String.valueOf(HttpStatus.OK),CommonConstants.OK,chapterService.findByTvShowsAndNumber(tvShowId,seasonNumber));
 	}
@@ -73,7 +74,7 @@ public class ChapterController {
             		+ "le pasamos por parámetro el tvShow-id de la serie, el season-number de las temporada y"
             		+ "el chapter-number de un capítulo")
 	
-	@GetMapping(value = RestConstants.RESOURCE_NUMBER)
+	@GetMapping(value = RestConstants.RESOURCE_CHAPTER+RestConstants.RESOURCE_NUMBER)
 	public NetflixResponse<ChaptersRestModel> listTvShowsAndNumberAndChapterNumber(@PathVariable long tvShowId, 
 			@PathVariable int seasonNumber, @PathVariable(value="number") int chapterNumber) throws NetflixException {
 		
@@ -91,7 +92,7 @@ public class ChapterController {
 	@ApiOperation(value = "Actualizamos el nombre de un capitulo"
 			, notes = "Este end point sirve para actualizar el nombre de un capitulo por su Id")
 	
-	@PatchMapping(value = RestConstants.RESOURCE_CHAPTER_UPDATE_NAME, produces = MediaType.APPLICATION_JSON_VALUE)
+	@PatchMapping(value = "/chapters"+ RestConstants.RESOURCE_CHAPTER_UPDATE_NAME, produces = MediaType.APPLICATION_JSON_VALUE)
 	public NetflixResponse<ChaptersRestModel> updateChapterName(@PathVariable Long chapterId, @PathVariable String chapterName) throws NetflixException  {
 		
 		return new NetflixResponse<>(CommonConstants.SUCCESS, String.valueOf(HttpStatus.OK), CommonConstants.OK,

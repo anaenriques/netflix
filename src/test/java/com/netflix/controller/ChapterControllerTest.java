@@ -121,4 +121,49 @@ class ChapterControllerTest {
 				.andExpect(content().json("{\"status\":\"ERROR\",\"code\":\"404\",\"message\":\"CHAPTER INEXISTENT - Chapter does not exist\",\"data\":[]}"))
 				.andReturn();
 	}
+	
+	
+	/**
+	 * Testupdate chapter name.
+	 *
+	 * @throws Exception the exception
+	 */
+	@Test
+	void testupdateChapterName() throws Exception {
+		
+		ChaptersRestModel chapter= new ChaptersRestModel();
+		chapter.setId(1L);
+		chapter.setName("FIN");
+		chapter.setDuration(45);
+		chapter.setNumber(25);
+		
+		when (chaptersServiceImpl.updateChapterName(1L,"Terror")).thenReturn(chapter);
+		
+		RequestBuilder request = MockMvcRequestBuilders
+				.patch("/chapters/{chapterId}/name/{chapterName}",1L,"Terror");
+				mockMvc.perform(request)
+				.andExpect(status().isOk())
+				.andExpect(content().json("{\"status\":\"Success\",\"code\":\"200 OK\",\"message\":\"OK\",\"data\":{\"id\":1,\"number\":25,\"name\":\"FIN\",\"duration\":45}}"))
+				.andReturn();
+	}
+	
+	/**
+	 * Testupdate chapter name not exist.
+	 *
+	 * @throws Exception the exception
+	 */
+	@Test
+	void testupdateChapterNameNotExist() throws Exception {
+		
+		when (chaptersServiceImpl.updateChapterName(1L,"Terror")).thenThrow(new NotFoundException(ExceptionConstants.MESSAGE_INEXISTENT_CHAPTER));
+		
+		RequestBuilder request = MockMvcRequestBuilders
+				.patch("/chapters/{chapterId}/name/{chapterName}",1L,"Terror");
+				mockMvc.perform(request)
+				.andExpect(status().isNotFound())
+				.andExpect(content().json("{\"status\":\"ERROR\",\"code\":\"404\",\"message\":\"CHAPTER INEXISTENT - Chapter does not exist\",\"data\":[]}"))
+				.andReturn();
+	}
+	
+		
 }

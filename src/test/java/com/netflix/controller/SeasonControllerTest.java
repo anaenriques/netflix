@@ -83,11 +83,12 @@ class SeasonControllerTest {
 	@Test
 	void testlistSeasonsByIdNotExist() throws Exception {
 		
-		TvShows tvShows = new TvShows();
-		when (seasonsServiceImpl.findByTvShows(tvShows)).thenThrow(new NotFoundException(ExceptionConstants.MESSAGE_INEXISTENT_SEASON));
+		final TvShows tvShows = new TvShows();
+		tvShows.setId(Long.getLong("5"));
+		when(seasonsServiceImpl.findByTvShows(tvShows)).thenThrow(new NotFoundException(ExceptionConstants.MESSAGE_INEXISTENT_SEASON));
 		
 		RequestBuilder request = MockMvcRequestBuilders
-				.get("/tv-shows/1/seasons");
+				.get("/tv-shows/3/seasons");
 				mockMvc.perform(request)
 				.andExpect(status().isNotFound())
 				.andExpect(content().json(""))
