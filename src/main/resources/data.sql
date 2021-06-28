@@ -26,4 +26,12 @@ INSERT INTO CATEGORY_TVSHOWS(ID, TVSHOW_ID, CATEGORY_ID) VALUES
     (1,1,1),
     (2,1,2),
     (3,2,1),
-    (4,2,3)
+    (4,2,3);
+INSERT INTO ACTORS(ID, NAME,AGE,ACTOR_ID) VALUES
+    (1,'Pepe',18,1),
+    (2,'Carlos',25,2),
+    (3,'Antonio',16,3);
+INSERT INTO ACTORS_TVSHOWS(ID, TVSHOW_ID, ACTOR_ID) VALUES
+    (1,1,1),
+    (2,2,2),
+    (3,3,3);

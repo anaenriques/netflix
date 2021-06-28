@@ -5,6 +5,7 @@
  */
 package com.netflix.service.impl;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -95,21 +96,6 @@ public class TvShowsServiceImpl implements TvShowsServiceI {
 		return modelMapper.map(tvShow, TvShowsRestModel.class);
 	}
 
-
-	/**
-	 * Update tv shows.
-	 *
-	 * @param tvShowId the tv show id
-	 * @return the tv shows rest model
-	 * @throws NetflixException the netflix exception
-	 */
-	@Override
-	public TvShowsRestModel updateTvShows(Long tvShowId) throws NetflixException{
-		
-		TvShows tvShows = tvShowsRepository.findById(tvShowId).orElseThrow(() -> new NotFoundException(ExceptionConstants.MESSAGE_INEXISTENT_TVSHOW) );
-		tvShowsRepository.save(tvShows);
-		return modelMapper.map(tvShows, TvShowsRestModel.class);
-	}
 	
 	/**
 	 * Update tv shows.
@@ -138,6 +124,24 @@ public class TvShowsServiceImpl implements TvShowsServiceI {
 	public void deleteByTvShowId(Long tvShowId) throws NetflixException {
 		
 		tvShowsRepository.deleteById(tvShowsRepository.findById(tvShowId).orElseThrow(() -> new NotFoundException(ExceptionConstants.MESSAGE_INEXISTENT_TVSHOW)).getId());
+	}
+	
+	/**
+	 * List tv shows by ids.
+	 *
+	 * @param listTvShowsIds the list tv shows ids
+	 * @return the sets the
+	 * @throws NetflixException the netflix exception
+	 */
+	@Override
+	public Set<TvShows> listTvShowsByIds(Set<Long> listTvShowsIds) throws NetflixException {
+		
+		Set<TvShows> tvShows=new HashSet<>(tvShowsRepository.findAllById(listTvShowsIds));
+		
+		if (tvShows.isEmpty()) {
+			throw new NotFoundException(ExceptionConstants.MESSAGE_INEXISTENT_TVSHOW);
+		}
+		return tvShows;
 	}
 
 }

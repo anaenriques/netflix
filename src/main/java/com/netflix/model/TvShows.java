@@ -132,6 +132,9 @@ public class TvShows implements Serializable{
 		)
 	@ManyToMany(cascade = CascadeType.ALL)
 	private List<Categories> categories;
+	
+	@ManyToMany(cascade = CascadeType.ALL, mappedBy="categories")
+	private List<TvShows> tvShows;
 
 
 }
